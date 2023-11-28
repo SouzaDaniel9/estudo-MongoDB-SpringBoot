@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daniel.estudos.domain.User;
+import com.daniel.estudos.dto.UserDTO;
 import com.daniel.estudos.exception.ObjectNotFoundException;
 import com.daniel.estudos.repository.UserRepository;
 
@@ -23,6 +24,14 @@ public class UserService {
 	public User findById(String id) {
 		Optional<User> user = repo.findById(id);
 		return user.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+	}
+
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+
+	public User fromDTO(UserDTO objDTO) {
+		return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
 	}
 
 }
